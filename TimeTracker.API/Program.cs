@@ -1,6 +1,11 @@
+using TimeTracker.API.Repositories;
+using TimeTracker.API.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<ITimeEntryRepository, TimeEntryRepository>();    
+builder.Services.AddScoped<ITimeEntryService, TimeEntryService>();  
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
