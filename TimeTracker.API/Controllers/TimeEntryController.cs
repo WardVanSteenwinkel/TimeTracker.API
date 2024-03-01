@@ -24,9 +24,9 @@ namespace TimeTracker.API.Controllers
         }
 
         [HttpPost]
-        public ActionResult<List<TimeEntryDTO>> CreateTimeEntry(TimeEntryCreateRequest request)
+        public async Task<ActionResult<List<TimeEntryDTO>>> CreateTimeEntry(TimeEntryCreateRequest request)
         {
-            return Ok(_timeEntryService.CreateTimeEntry(request));
+            return Ok(await _timeEntryService.CreateTimeEntry(request));
         }
 
         [HttpPut("{id}")]

@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
+using TimeTracker.API.Data;
 using TimeTracker.Domain.Dto.Request;
 using TimeTracker.Domain.Dto.Response;
 using TimeTracker.Domain.entities;
@@ -7,6 +9,13 @@ namespace TimeTracker.API.Repositories
 {
     public class TimeEntryRepository : ITimeEntryRepository
     {
+        private readonly DataContext _dbContext;
+
+        public TimeEntryRepository(DataContext dbContext)
+        {
+            _dbContext = dbContext;
+        }
+
         private static List<TimeEntry> _timeEntries = new List<TimeEntry>
         {
             new TimeEntry
@@ -18,10 +27,11 @@ namespace TimeTracker.API.Repositories
             }
         };
 
-        public List<TimeEntry> CreateTimeEntry(TimeEntry timeEntry)
+        public async Task<List<TimeEntry>> CreateTimeEntry(TimeEntry timeEntry)
         {
-            _timeEntries.Add(timeEntry);
-            return _timeEntries;
+            _dbContext.TimeEntries.Add(timeEntry);
+            await _dbContext.SaveChangesAsync();
+            return await _dbContext.TimeEntries.ToListAsync();
         }
 
         public List<TimeEntry> DeleteTimeEntry(int id)
