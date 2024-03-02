@@ -20,9 +20,9 @@ namespace TimeTracker.API.Services
             return result.Adapt<List<TimeEntryDTO>>();
         }
 
-        public List<TimeEntryDTO> DeleteTimeEntry(int id)
+        public async Task<List<TimeEntryDTO>> DeleteTimeEntry(int id)
         {
-            var result = _repository.DeleteTimeEntry(id);
+            var result = await _repository.DeleteTimeEntry(id);
             if(result is null)
             {
                 return null;
@@ -30,20 +30,26 @@ namespace TimeTracker.API.Services
             return result.Adapt<List<TimeEntryDTO>>();  
         }
 
-        public List<TimeEntryDTO> GetAllTimeEntries()
+        public async Task<List<TimeEntryDTO>> GetAllTimeEntries()
         {
-            return _repository.GetAllTimeEntries().Adapt<List<TimeEntryDTO>>();
+            var result = await _repository.GetAllTimeEntries();
+            return result.Adapt<List<TimeEntryDTO>>();
         }
 
-        public TimeEntryDTO GetTimeEntry(int id)
+        public async Task<TimeEntryDTO> GetTimeEntry(int id)
         {
-            return _repository.GetTimeEntry(id).Adapt<TimeEntryDTO>();
+            var result = await _repository.GetTimeEntry(id);
+            return result.Adapt<TimeEntryDTO>();
         }
 
-        public List<TimeEntryDTO> UpdateTimeEntry(int id, TimeEntryUpdateRequest request)
+        public async Task<List<TimeEntryDTO>> UpdateTimeEntry(int id, TimeEntryUpdateRequest request)
         {
             var itemToUpdate = request.Adapt<TimeEntry>();
-            var result = _repository.UpdateTimeEntry(id, itemToUpdate);
+            var result = await _repository.UpdateTimeEntry(id, itemToUpdate);
+            if(result is null)
+            {
+                return null;
+            }
             return result.Adapt<List<TimeEntryDTO>>();
         }
     }

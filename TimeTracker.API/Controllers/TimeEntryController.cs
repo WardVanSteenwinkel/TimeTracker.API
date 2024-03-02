@@ -18,9 +18,9 @@ namespace TimeTracker.API.Controllers
         }
 
         [HttpGet]
-        public ActionResult<List<TimeEntryDTO>> GetAllTimeEntries()
+        public async Task<ActionResult<List<TimeEntryDTO>>> GetAllTimeEntries()
         {
-            return Ok(_timeEntryService.GetAllTimeEntries());
+            return Ok(await _timeEntryService.GetAllTimeEntries());
         }
 
         [HttpPost]
@@ -30,9 +30,9 @@ namespace TimeTracker.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult<List<TimeEntryDTO>> UpdateTimeEntry(int id, TimeEntryUpdateRequest request)
+        public async Task<ActionResult<List<TimeEntryDTO>>> UpdateTimeEntry(int id, TimeEntryUpdateRequest request)
         {
-            var result = _timeEntryService.UpdateTimeEntry(id, request);
+            var result = await _timeEntryService.UpdateTimeEntry(id, request);
             if (result != null)
             {
                 NotFound();
@@ -41,9 +41,9 @@ namespace TimeTracker.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<TimeEntryDTO> GetTimeEntry(int id)
+        public async Task<ActionResult<TimeEntryDTO>> GetTimeEntry(int id)
         {
-            var result = _timeEntryService.GetTimeEntry(id);
+            var result = await _timeEntryService.GetTimeEntry(id);
             if(result == null)
             {
                 NotFound();
@@ -52,9 +52,9 @@ namespace TimeTracker.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<List<TimeEntryDTO>> DeleteTimeEntry(int id)
+        public async Task<ActionResult<List<TimeEntryDTO>>> DeleteTimeEntry(int id)
         {
-            var result = _timeEntryService.DeleteTimeEntry(id);
+            var result = await _timeEntryService.DeleteTimeEntry(id);
             if (result == null)
             {
                 NotFound();

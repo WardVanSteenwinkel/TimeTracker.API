@@ -4,10 +4,10 @@ namespace TimeTracker.API.Repositories
 {
     public interface ITimeEntryRepository
     {
-        List<TimeEntry> GetAllTimeEntries();
+        Task<List<TimeEntry>> GetAllTimeEntries();
         Task<List<TimeEntry>> CreateTimeEntry(TimeEntry timeEntry);
-        List<TimeEntry> UpdateTimeEntry(int id, TimeEntry timeEntry);
-        List<TimeEntry> DeleteTimeEntry(int id);
-        TimeEntry GetTimeEntry(int id);
+        Task<List<TimeEntry>> UpdateTimeEntry(int id, TimeEntry timeEntry);
+        Task<List<TimeEntry>> DeleteTimeEntry(int id);
+        Task<TimeEntry> GetTimeEntry(int id);
     }
 }
