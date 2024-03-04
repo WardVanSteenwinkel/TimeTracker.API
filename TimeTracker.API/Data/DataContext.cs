@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TimeTracker.Domain.entities;
+using TimeTracker.Domain.Entities;
 
 namespace TimeTracker.API.Data
 {
@@ -11,5 +12,6 @@ namespace TimeTracker.API.Data
         }
 
         public DbSet<TimeEntry> TimeEntries { get; set; }
+        public DbSet<Project> Projects { get; set; }
     }
 }

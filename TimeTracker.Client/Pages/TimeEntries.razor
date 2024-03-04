@@ -1,0 +1,19 @@
+﻿@page "/timeentries"
+@*nergens anders specificeren enkel bovenaan*@
+@inject HttpClient http
+
+<PageTitle>TestPage</PageTitle> @*pagetitel standaard deel van blazor*@
+<h3>TimeEntries</h3>
+
+@code {
+    private List<TimeEntryDTO> timeEntries = new List<TimeEntryDTO>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await http.GetFromJsonAsync<List<TimeEntryDTO>>("api/timeentry");
+        if(result != null)
+        {
+            timeEntries = result;
+        }
+    }
+}
